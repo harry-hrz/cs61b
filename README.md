@@ -1,1 +1,1 @@
-# cs61b
+# Berkely CS 61B
