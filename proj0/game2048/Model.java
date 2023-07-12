@@ -204,107 +204,47 @@ public class Model extends Observable {
                     if (row - 1 >= 0) {m_n_v = b.tile(col, row - 1).value();}
                     if (row + 1 < board_size) {m_s_v = b.tile(col, row + 1).value();}
                     if (col - 1 < 0 && row - 1 < 0) {
-                        if(m_e_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_s_v == tv) {
+                        if(m_e_v == tv || m_s_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (row - 1 < 0 && col - 1 >= 0 && col + 1 < board_size) {
-                        if(m_w_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_e_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_s_v == tv) {
+                        if(m_w_v == tv || m_e_v == tv || m_s_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row - 1 < 0) {
-                        if(m_w_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_s_v == tv) {
+                        if(m_w_v == tv || m_s_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row - 1 >= 0 && row + 1 < board_size) {
-                        if(m_w_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_s_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_n_v == tv) {
+                        if(m_w_v == tv || m_s_v == tv || m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row + 1 == board_size) {
-                        if(m_w_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_n_v == tv) {
+                        if(m_w_v == tv || m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (row + 1 == board_size && col + 1 < board_size && col - 1 >= 0) {
-                        if(m_w_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_e_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_n_v == tv) {
+                        if(m_w_v == tv || m_e_v == tv || m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (row + 1 == board_size && col - 1 < 0) {
-                        if(m_n_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_e_v == tv) {
+                        if(m_n_v == tv || m_e_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (col - 1 < 0 && row + 1 < board_size && row - 1 >= 0){
-                        if(m_e_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_s_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_n_v == tv) {
+                        if(m_e_v == tv || m_s_v == tv || m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else {
-                        if(m_w_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_e_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_n_v == tv) {
-                            yes = 1;
-                            break;
-                        }
-                        if(m_s_v == tv) {
+                        if(m_w_v == tv || m_e_v == tv || m_n_v == tv || m_s_v == tv) {
                             yes = 1;
                             break;
                         }
