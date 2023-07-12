@@ -139,15 +139,15 @@ public class Model extends Observable {
     public static boolean emptySpaceExists(Board b) {
         int board_size = b.size();
         int yes = 0;
-        for (int col = 0; col < board_size; col++){
-            for (int row = 0; row < board_size; row++){
+        for (int col = 0; col < board_size; col++) {
+            for (int row = 0; row < board_size; row++) {
                 Tile t = b.tile(col, row);
-                if (t == null){
+                if (t == null) {
                     yes = 1;
                     break;
                 }
             }
-            if (yes == 1){
+            if (yes == 1) {
                 break;
             }
         }
@@ -162,17 +162,17 @@ public class Model extends Observable {
     public static boolean maxTileExists(Board b) {
         int board_size = b.size();
         int yes = 0;
-        for (int col = 0; col < board_size; col++){
-            for (int row = 0; row < board_size; row++){
+        for (int col = 0; col < board_size; col++) {
+            for (int row = 0; row < board_size; row++) {
                 Tile t = b.tile(col, row);
-                if (t != null){
+                if (t != null) {
                     if (t.value() == MAX_PIECE) {
                         yes = 1;
                         break;
                     }
                 }
             }
-            if (yes == 1){
+            if (yes == 1) {
                 break;
             }
         }
@@ -186,8 +186,67 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        int board_size = b.size();
+        int yes = 0;
+        if (emptySpaceExists(b)) {
+            yes = 1;
+        } else {
+            for (int col = 0; col < board_size; col++) {
+                for (int row = 0; row < board_size; row++) {
+                    Tile t = b.tile(col, row);
+                    if (col - 1 < 0 && row - 1 < 0) {
+                        if(b.move(col + 1, row, t) || b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (row - 1 < 0 && col - 1 > 0 && col + 1 < board_size) {
+                        if(b.move(col - 1, row, t) || b.move(col + 1, row, t) || b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (col + 1 == board_size && row - 1 < 0){
+                        if(b.move(col - 1, row, t) || b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (col + 1 == board_size && row - 1 > 0 && row + 1 < board_size) {
+                        if(b.move(col - 1, row, t) || b.move(col, row + 1, t) || b.move(col, row - 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (col + 1 == board_size && row + 1 == board_size) {
+                        if(b.move(col - 1, row, t) || b.move(col, row - 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (row + 1 == board_size && col + 1 < board_size && col - 1 > 0) {
+                        if(b.move(col - 1, row, t) || b.move(col + 1, row, t) || b.move(col, row - 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (row + 1 == board_size && col - 1 < 0) {
+                        if(b.move(col, row - 1, t) || b.move(col + 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (col - 1 < 0 && row + 1 < board_size && row - 1 > 0){
+                        if(b.move(col + 1, row, t) || b.move(col, row + 1, t) || b.move(col, row - 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else {
+                        if(b.move(col - 1, row, t) || b.move(col + 1, row, t) || b.move(col, row - 1, t) || b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    }
+                }
+                if (yes == 1) {
+                    break;
+                }
+            }
+        }
+        return yes == 1;
     }
 
     /** Returns the model as a string, used for debugging. */
