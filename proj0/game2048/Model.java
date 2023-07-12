@@ -195,47 +195,131 @@ public class Model extends Observable {
                 for (int row = 0; row < board_size; row++) {
                     Tile t = b.tile(col, row);
                     if (col - 1 < 0 && row - 1 < 0) {
-                        if(b.move(col + 1, row, t) || b.move(col, row + 1, t)) {
+                        b.setViewingPerspective(Side.EAST);
+                        if(b.move(col + 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.SOUTH);
+                        if(b.move(col, row + 1, t)) {
                             yes = 1;
                             break;
                         }
                     } else if (row - 1 < 0 && col - 1 > 0 && col + 1 < board_size) {
-                        if(b.move(col - 1, row, t) || b.move(col + 1, row, t) || b.move(col, row + 1, t)) {
+                        b.setViewingPerspective(Side.WEST);
+                        if(b.move(col - 1, row, t)) {
                             yes = 1;
                             break;
                         }
-                    } else if (col + 1 == board_size && row - 1 < 0){
-                        if(b.move(col - 1, row, t) || b.move(col, row + 1, t)) {
+                        b.setViewingPerspective(Side.EAST);
+                        if(b.move(col + 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.SOUTH);
+                        if(b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                    } else if (col + 1 == board_size && row - 1 < 0) {
+                        b.setViewingPerspective(Side.WEST);
+                        if(b.move(col - 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.SOUTH);
+                        if(b.move(col, row + 1, t)) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row - 1 > 0 && row + 1 < board_size) {
-                        if(b.move(col - 1, row, t) || b.move(col, row + 1, t) || b.move(col, row - 1, t)) {
+                        b.setViewingPerspective(Side.WEST);
+                        if(b.move(col - 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.SOUTH);
+                        if(b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.NORTH);
+                        if(b.move(col, row - 1, t)) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row + 1 == board_size) {
-                        if(b.move(col - 1, row, t) || b.move(col, row - 1, t)) {
+                        b.setViewingPerspective(Side.WEST);
+                        if(b.move(col - 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.NORTH);
+                        if(b.move(col, row - 1, t)) {
                             yes = 1;
                             break;
                         }
                     } else if (row + 1 == board_size && col + 1 < board_size && col - 1 > 0) {
-                        if(b.move(col - 1, row, t) || b.move(col + 1, row, t) || b.move(col, row - 1, t)) {
+                        b.setViewingPerspective(Side.WEST);
+                        if(b.move(col - 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.EAST);
+                        if(b.move(col + 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.NORTH);
+                        if(b.move(col, row - 1, t)) {
                             yes = 1;
                             break;
                         }
                     } else if (row + 1 == board_size && col - 1 < 0) {
-                        if(b.move(col, row - 1, t) || b.move(col + 1, row, t)) {
+                        b.setViewingPerspective(Side.NORTH);
+                        if(b.move(col, row - 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.EAST);
+                        if(b.move(col + 1, row, t)) {
                             yes = 1;
                             break;
                         }
                     } else if (col - 1 < 0 && row + 1 < board_size && row - 1 > 0){
-                        if(b.move(col + 1, row, t) || b.move(col, row + 1, t) || b.move(col, row - 1, t)) {
+                        b.setViewingPerspective(Side.EAST);
+                        if(b.move(col + 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.SOUTH);
+                        if(b.move(col, row + 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.NORTH);
+                        if(b.move(col, row - 1, t)) {
                             yes = 1;
                             break;
                         }
                     } else {
-                        if(b.move(col - 1, row, t) || b.move(col + 1, row, t) || b.move(col, row - 1, t) || b.move(col, row + 1, t)) {
+                        b.setViewingPerspective(Side.WEST);
+                        if(b.move(col - 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.EAST);
+                        if(b.move(col + 1, row, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.NORTH);
+                        if(b.move(col, row - 1, t)) {
+                            yes = 1;
+                            break;
+                        }
+                        b.setViewingPerspective(Side.SOUTH);
+                        if(b.move(col, row + 1, t)) {
                             yes = 1;
                             break;
                         }
