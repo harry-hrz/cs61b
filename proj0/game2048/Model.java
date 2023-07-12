@@ -191,135 +191,120 @@ public class Model extends Observable {
         if (emptySpaceExists(b)) {
             yes = 1;
         } else {
+            int m_e_v = 0;
+            int m_w_v = 0;
+            int m_s_v = 0;
+            int m_n_v = 0;
             for (int col = 0; col < board_size; col++) {
                 for (int row = 0; row < board_size; row++) {
                     Tile t = b.tile(col, row);
+                    int tv = t.value();
+                    if (col + 1 < board_size) {m_e_v = b.tile(col + 1, row).value();}
+                    if (col - 1 >= 0) {m_w_v = b.tile(col - 1, row).value();}
+                    if (row - 1 >= 0) {m_n_v = b.tile(col, row - 1).value();}
+                    if (row + 1 < board_size) {m_s_v = b.tile(col, row + 1).value();}
                     if (col - 1 < 0 && row - 1 < 0) {
-                        b.setViewingPerspective(Side.EAST);
-                        if(b.move(col + 1, row, t)) {
+                        if(m_e_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.SOUTH);
-                        if(b.move(col, row + 1, t)) {
+                        if(m_s_v == tv) {
                             yes = 1;
                             break;
                         }
-                    } else if (row - 1 < 0 && col - 1 > 0 && col + 1 < board_size) {
-                        b.setViewingPerspective(Side.WEST);
-                        if(b.move(col - 1, row, t)) {
+                    } else if (row - 1 < 0 && col - 1 >= 0 && col + 1 < board_size) {
+                        if(m_w_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.EAST);
-                        if(b.move(col + 1, row, t)) {
+                        if(m_e_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.SOUTH);
-                        if(b.move(col, row + 1, t)) {
+                        if(m_s_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row - 1 < 0) {
-                        b.setViewingPerspective(Side.WEST);
-                        if(b.move(col - 1, row, t)) {
+                        if(m_w_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.SOUTH);
-                        if(b.move(col, row + 1, t)) {
+                        if(m_s_v == tv) {
                             yes = 1;
                             break;
                         }
-                    } else if (col + 1 == board_size && row - 1 > 0 && row + 1 < board_size) {
-                        b.setViewingPerspective(Side.WEST);
-                        if(b.move(col - 1, row, t)) {
+                    } else if (col + 1 == board_size && row - 1 >= 0 && row + 1 < board_size) {
+                        if(m_w_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.SOUTH);
-                        if(b.move(col, row + 1, t)) {
+                        if(m_s_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.NORTH);
-                        if(b.move(col, row - 1, t)) {
+                        if(m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (col + 1 == board_size && row + 1 == board_size) {
-                        b.setViewingPerspective(Side.WEST);
-                        if(b.move(col - 1, row, t)) {
+                        if(m_w_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.NORTH);
-                        if(b.move(col, row - 1, t)) {
+                        if(m_n_v == tv) {
                             yes = 1;
                             break;
                         }
-                    } else if (row + 1 == board_size && col + 1 < board_size && col - 1 > 0) {
-                        b.setViewingPerspective(Side.WEST);
-                        if(b.move(col - 1, row, t)) {
+                    } else if (row + 1 == board_size && col + 1 < board_size && col - 1 >= 0) {
+                        if(m_w_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.EAST);
-                        if(b.move(col + 1, row, t)) {
+                        if(m_e_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.NORTH);
-                        if(b.move(col, row - 1, t)) {
+                        if(m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else if (row + 1 == board_size && col - 1 < 0) {
-                        b.setViewingPerspective(Side.NORTH);
-                        if(b.move(col, row - 1, t)) {
+                        if(m_n_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.EAST);
-                        if(b.move(col + 1, row, t)) {
+                        if(m_e_v == tv) {
                             yes = 1;
                             break;
                         }
-                    } else if (col - 1 < 0 && row + 1 < board_size && row - 1 > 0){
-                        b.setViewingPerspective(Side.EAST);
-                        if(b.move(col + 1, row, t)) {
+                    } else if (col - 1 < 0 && row + 1 < board_size && row - 1 >= 0){
+                        if(m_e_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.SOUTH);
-                        if(b.move(col, row + 1, t)) {
+                        if(m_s_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.NORTH);
-                        if(b.move(col, row - 1, t)) {
+                        if(m_n_v == tv) {
                             yes = 1;
                             break;
                         }
                     } else {
-                        b.setViewingPerspective(Side.WEST);
-                        if(b.move(col - 1, row, t)) {
+                        if(m_w_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.EAST);
-                        if(b.move(col + 1, row, t)) {
+                        if(m_e_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.NORTH);
-                        if(b.move(col, row - 1, t)) {
+                        if(m_n_v == tv) {
                             yes = 1;
                             break;
                         }
-                        b.setViewingPerspective(Side.SOUTH);
-                        if(b.move(col, row + 1, t)) {
+                        if(m_s_v == tv) {
                             yes = 1;
                             break;
                         }
