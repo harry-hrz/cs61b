@@ -142,9 +142,7 @@ public class Model extends Observable {
         for (int col = 0; col < board_size; col++){
             for (int row = 0; row < board_size; row++){
                 Tile t = b.tile(col, row);
-                if (t != null){
-                    continue;
-                } else{
+                if (t == null){
                     yes = 1;
                     break;
                 }
@@ -153,11 +151,7 @@ public class Model extends Observable {
                 break;
             }
         }
-        if (yes == 1){
-            return true;
-        } else{
-            return false;
-        }
+        return yes == 1;
     }
 
     /**
@@ -171,9 +165,7 @@ public class Model extends Observable {
         for (int col = 0; col < board_size; col++){
             for (int row = 0; row < board_size; row++){
                 Tile t = b.tile(col, row);
-                if (t == null){
-                    continue;
-                } else{
+                if (t != null){
                     if (t.value() == MAX_PIECE) {
                         yes = 1;
                         break;
@@ -184,11 +176,7 @@ public class Model extends Observable {
                 break;
             }
         }
-        if (yes == 1){
-            return true;
-        } else{
-            return false;
-        }
+        return yes == 1;
     }
 
     /**
