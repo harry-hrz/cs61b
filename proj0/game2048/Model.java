@@ -150,6 +150,9 @@ public class Model extends Observable {
                     break;
                 }
             }
+            if (yes == 1){
+                break;
+            }
         }
         if (yes == 1){
             return true;
