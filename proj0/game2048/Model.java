@@ -147,6 +147,7 @@ public class Model extends Observable {
                     continue;
                 } else{
                     yes = 1;
+                    break;
                 }
             }
         }
