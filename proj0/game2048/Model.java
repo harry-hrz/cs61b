@@ -115,15 +115,12 @@ public class Model extends Observable {
      *    and the trailing tile does not.
      */
     public void tilt(Side side) {
-        _board.setViewingPerspective(side); // so the only direction we consider is moving up
+        _board.setViewingPerspective(side); // so that the only direction we consider is moving up
         int board_size = _board.size();
+        int[] col_move;
         for (int c = 0; c < board_size; c++) {
-            int[] col_move = new int[board_size];
-            for (int r = board_size - 1; r >= 0; r--){
-                if (_board.tile(c, r) != null) {
-                    col_move[r] = checkMoveDes(c, r, board_size);
-                }
-            }
+            col_move = checkMoveDes(c, board_size);
+            //for (int row = 0; row < board_size; row++) System.out.println(col_move[row]);
             int s = updateOneColumn(c, col_move);
             _score += s;
         }
@@ -131,33 +128,50 @@ public class Model extends Observable {
         checkGameOver();
     }
 
-    public int checkMoveDes(int col, int row, int bord_size) {
+    public int[] checkMoveDes(int col, int bord_size) {
+        int[] col_move = new int[bord_size];
         int[] merged_row = new int[bord_size];
-        int move_step = 0;
-        if (row == bord_size - 1) {
-            return 0; // top row, 0 means no move, stay still
-        } else {
+        int[] move_away = new int[bord_size];
+        for (int i = 0; i < bord_size; i++) {
+            if (_board.tile(col, i) == null) {
+                move_away[i] = 1;
+            }
+        }
+        for (int row = bord_size - 2; row >= 0; row--) {
             Tile t0 = _board.tile(col, row);
-            for (int r = row + 1; r <= bord_size - 1; r++) {
-                if (_board.tile(col, r) == null){
-                    move_step += 1;
+            if (t0 == null){
+                col_move[row] = 0;
+                continue;
+            }
+            for (int r = row + 1; r < bord_size; r++) {
+                if (_board.tile(col, r) == null) {
+                    if (move_away[r] == 1) {
+                        move_away[row] = 1;
+                        move_away[r] = 0;
+                        col_move[row] += 1;
+                    }
+                } else if (move_away[r] == 1) {
+                    move_away[r] = 0;
+                    move_away[row] = 1;
+                    col_move[row] += 1;
                 } else {
                     Tile t = _board.tile(col, r);
-                    if (t.value() == t0.value() && merged_row[r] == 0){
-                        move_step += 1;
+                    if (t.value() == t0.value() && merged_row[r] == 0) {
+                        col_move[row] += 1;
                         merged_row[r] = 1;
+                        move_away[row] = 1;
                         break;
                     }
                 }
             }
         }
-        return move_step;
+        return col_move;
     }
 
     public int updateOneColumn(int c, int[] col_move) { // return scores added
         boolean add_score;
         int score_added = 0;
-        for (int r = 0; r < col_move.length; r++) {
+        for (int r = col_move.length - 1; r >= 0; r--) {
             if (col_move[r] > 0) {
                 Tile t = _board.tile(c, r);
                 add_score = _board.move(c, r + col_move[r], t);
