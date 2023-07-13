@@ -119,25 +119,23 @@ public class Model extends Observable {
         int board_size = _board.size();
         int[] col_move;
         for (int c = 0; c < board_size; c++) {
-            col_move = checkMoveDes(c, board_size);
+            calStepAndMove(c, board_size);
             //for (int row = 0; row < board_size; row++) System.out.println(col_move[row]);
-            int s = updateOneColumn(c, col_move);
-            _score += s;
         }
         _board.setViewingPerspective(Side.NORTH);
         checkGameOver();
     }
 
-    public int[] checkMoveDes(int col, int bord_size) {
+    public void calStepAndMove(int col, int bord_size) {
         int[] col_move = new int[bord_size];
         int[] merged_row = new int[bord_size];
-        int[] move_away = new int[bord_size];
-        for (int i = 0; i < bord_size; i++) {
-            if (_board.tile(col, i) == null) {
-                move_away[i] = 1;
-            }
-        }
+        int[] empty = new int[bord_size];
         for (int row = bord_size - 2; row >= 0; row--) {
+            for (int i = 0; i < bord_size; i++) {
+                if (_board.tile(col, i) == null) {
+                    empty[i] = 1;
+                }
+            }
             Tile t0 = _board.tile(col, row);
             if (t0 == null){
                 col_move[row] = 0;
@@ -145,42 +143,39 @@ public class Model extends Observable {
             }
             for (int r = row + 1; r < bord_size; r++) {
                 if (_board.tile(col, r) == null) {
-                    if (move_away[r] == 1) {
-                        move_away[row] = 1;
-                        move_away[r] = 0;
+                    if (empty[r] == 1) {
+                        empty[row] = 1;
+                        empty[r] = 0;
                         col_move[row] += 1;
                     }
-                } else if (move_away[r] == 1) {
-                    move_away[r] = 0;
-                    move_away[row] = 1;
+                } else if (empty[r] == 1) {
+                    empty[r] = 0;
+                    empty[row] = 1;
                     col_move[row] += 1;
                 } else {
                     Tile t = _board.tile(col, r);
                     if (t.value() == t0.value() && merged_row[r] == 0) {
                         col_move[row] += 1;
                         merged_row[r] = 1;
-                        move_away[row] = 1;
+                        empty[row] = 1;
+
                         break;
                     }
                 }
             }
+            updateOneTile(col, row, col_move[row]);
         }
-        return col_move;
     }
 
-    public int updateOneColumn(int c, int[] col_move) { // return scores added
+    public void updateOneTile(int c, int r, int col_move) { // return scores added
         boolean add_score;
-        int score_added = 0;
-        for (int r = col_move.length - 1; r >= 0; r--) {
-            if (col_move[r] > 0) {
-                Tile t = _board.tile(c, r);
-                add_score = _board.move(c, r + col_move[r], t);
-                if (add_score) {
-                    score_added += _board.tile(c, r + col_move[r]).value();
-                }
+        if (col_move > 0) {
+            Tile t = _board.tile(c, r);
+            add_score = _board.move(c, r + col_move, t);
+            if (add_score) {
+                _score += _board.tile(c, r + col_move).value();
             }
         }
-        return score_added;
     }
 
     /** Checks if the game is over and sets the gameOver variable
