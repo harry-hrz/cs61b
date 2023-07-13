@@ -117,10 +117,8 @@ public class Model extends Observable {
     public void tilt(Side side) {
         _board.setViewingPerspective(side); // so that the only direction we consider is moving up
         int board_size = _board.size();
-        int[] col_move;
         for (int c = 0; c < board_size; c++) {
             calStepAndMove(c, board_size);
-            //for (int row = 0; row < board_size; row++) System.out.println(col_move[row]);
         }
         _board.setViewingPerspective(Side.NORTH);
         checkGameOver();
@@ -129,13 +127,8 @@ public class Model extends Observable {
     public void calStepAndMove(int col, int bord_size) {
         int[] col_move = new int[bord_size];
         int[] merged_row = new int[bord_size];
-        int[] empty = new int[bord_size];
         for (int row = bord_size - 2; row >= 0; row--) {
-            for (int i = 0; i < bord_size; i++) {
-                if (_board.tile(col, i) == null) {
-                    empty[i] = 1;
-                }
-            }
+            int cur_row = row;
             Tile t0 = _board.tile(col, row);
             if (t0 == null){
                 col_move[row] = 0;
@@ -143,27 +136,20 @@ public class Model extends Observable {
             }
             for (int r = row + 1; r < bord_size; r++) {
                 if (_board.tile(col, r) == null) {
-                    if (empty[r] == 1) {
-                        empty[row] = 1;
-                        empty[r] = 0;
-                        col_move[row] += 1;
-                    }
-                } else if (empty[r] == 1) {
-                    empty[r] = 0;
-                    empty[row] = 1;
                     col_move[row] += 1;
+                    cur_row += 1;
                 } else {
                     Tile t = _board.tile(col, r);
-                    if (t.value() == t0.value() && merged_row[r] == 0) {
+                    if (t.value() == t0.value() && merged_row[r] == 0 && r - cur_row == 1) {
                         col_move[row] += 1;
                         merged_row[r] = 1;
-                        empty[row] = 1;
-
                         break;
                     }
                 }
             }
-            updateOneTile(col, row, col_move[row]);
+            if (col_move[row] > 0) {
+                updateOneTile(col, row, col_move[row]);
+            }
         }
     }
 
