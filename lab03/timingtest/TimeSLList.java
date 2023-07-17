@@ -22,7 +22,31 @@ public class TimeSLList {
     }
 
     public static void timeGetLast() {
-        // TODO: YOUR CODE HERE
+        AList Ns = new AList<Integer>();
+
+        AList times = new AList<Double>();
+
+        AList op = new AList<Integer>();
+
+        SLList test = new SLList<Integer>();
+
+        int M = 10000;
+        for (int i = 1; i <= 128000; i++) {
+            test.addFirst(1);
+            if (i == 1000 || i == 2000 || i == 4000 || i == 8000 || i == 16000 || i == 32000 || i == 64000 || i == 128000) {
+                long start = System.nanoTime();
+                for (int j = 0; j < M; j++){
+                    Object a = test.getLast();
+                }
+                long end = System.nanoTime();
+                double time = (end - start) / 1000000000.0;
+                Ns.addLast(i);
+                times.addLast(time);
+                op.addLast(M);
+            }
+        }
+
+        printTimingTable(Ns, times, op);
     }
 
 }

@@ -22,6 +22,36 @@ public class TimeAList {
     }
 
     public static void timeAListConstruction() {
-        // TODO: YOUR CODE HERE
+        AList Ns = new AList<Integer>();
+        int[] n = new int[9];
+
+        AList times = new AList<Double>();
+        double[] t = new double[9];
+
+        AList op = new AList<Integer>();
+        int[] ops = new int[9];
+
+        AList testlist = new AList<Integer>();
+
+        int j = 0;
+        long start_time = System.nanoTime();
+        for (int i = 1; i <= 1280000; i++) {
+            testlist.addLast(1);
+            if (i == 1000 || i == 2000 || i == 4000 || i == 8000 || i == 16000 || i == 32000 || i == 64000 || i == 128000 || i == 1280000) {
+                long end_time = System.nanoTime();
+                long time = end_time - start_time;
+                n[j] = i;
+                t[j] = time / 1000000000.0;
+                ops[j] = i;
+                j += 1;
+            }
+        }
+        for (int i = 0; i < n.length; i++) {
+            Ns.addLast(n[i]);
+            times.addLast(t[i]);
+            op.addLast(ops[i]);
+        }
+
+        printTimingTable(Ns, times, op);
     }
 }
