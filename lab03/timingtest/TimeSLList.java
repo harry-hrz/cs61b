@@ -22,13 +22,13 @@ public class TimeSLList {
     }
 
     public static void timeGetLast() {
-        AList Ns = new AList<Integer>();
+        AList<Integer> Ns = new AList<>();
 
-        AList times = new AList<Double>();
+        AList<Double> times = new AList<>();
 
-        AList op = new AList<Integer>();
+        AList<Integer> op = new AList<>();
 
-        SLList test = new SLList<Integer>();
+        SLList<Integer> test = new SLList<>();
 
         int M = 10000;
         for (int i = 1; i <= 128000; i++) {
@@ -36,7 +36,7 @@ public class TimeSLList {
             if (i == 1000 || i == 2000 || i == 4000 || i == 8000 || i == 16000 || i == 32000 || i == 64000 || i == 128000) {
                 long start = System.nanoTime();
                 for (int j = 0; j < M; j++){
-                    Object a = test.getLast();
+                    int a = test.getLast();
                 }
                 long end = System.nanoTime();
                 double time = (end - start) / 1000000000.0;

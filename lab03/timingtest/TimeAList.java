@@ -22,16 +22,16 @@ public class TimeAList {
     }
 
     public static void timeAListConstruction() {
-        AList Ns = new AList<Integer>();
+        AList<Integer> Ns = new AList<>();
         int[] n = new int[9];
 
-        AList times = new AList<Double>();
+        AList<Double> times = new AList<>();
         double[] t = new double[9];
 
-        AList op = new AList<Integer>();
+        AList<Integer> op = new AList<>();
         int[] ops = new int[9];
 
-        AList testlist = new AList<Integer>();
+        AList<Integer> testlist = new AList<>();
 
         int j = 0;
         long start_time = System.nanoTime();
