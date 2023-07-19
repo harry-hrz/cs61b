@@ -58,6 +58,7 @@ public class ArrayDeque<DType> {
     public int size() {return size;}
 
     public void printDeque() {
+        if (size == 0) {return;}
         if (front == 0) {
             for (int i = 0; i < size-1; i++) {
                 System.out.print(items[i] + " ");
