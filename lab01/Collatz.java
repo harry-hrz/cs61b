@@ -1,17 +1,23 @@
 /** Class that prints the Collatz sequence starting from a given number.
- *  @author YOUR NAME HERE
+ *  @author Harry Zhang
  */
 public class Collatz {
 
-    /** Buggy implementation of nextNumber! */
+    /** Returns the nextNumber in a Collatz sequence. */
     public static int nextNumber(int n) {
-        if (n  == 128) {
-            return 1;
-        } else if (n == 5) {
-            return 3 * n + 1;
-        } else {
-            return n * 2;
+        /**
+         * if n is odd, return 3n + 1
+         * if n is even, return n/2
+         */
+        // TODO: Fill in this method.
+        int result = 0;
+        if (n % 2 == 0) {
+            result = n / 2;
         }
+        else{
+            result = n * 3 + 1;
+        }
+        return result;
     }
 
     public static void main(String[] args) {
