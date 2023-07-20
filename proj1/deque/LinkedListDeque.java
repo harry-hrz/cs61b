@@ -142,6 +142,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         return result;
     }
 
+    @Override
     public boolean equals(Object o) {
         boolean result = false;
         if (o instanceof LinkedListDeque<?>) {
