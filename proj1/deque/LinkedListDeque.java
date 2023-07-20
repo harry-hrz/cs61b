@@ -1,7 +1,9 @@
 package deque;
 
-public class LinkedListDeque<DType> {
-    public class Node {
+import java.util.Iterator;
+
+public class LinkedListDeque<DType> implements Iterable<DType> {
+    private class Node {
         public Node next;
         public Node prev;
         public DType item;
@@ -11,6 +13,28 @@ public class LinkedListDeque<DType> {
             item = i;
         }
     }
+
+    private class ListIter implements Iterator<DType> {
+        private int cur;
+
+        public ListIter() {
+            cur = 0;
+        }
+
+        @Override
+        public boolean hasNext() {return cur < size;}
+
+        @Override
+        public DType next() {
+            Node p = sentinel;
+            for (int i = 0; i <= cur; i++) {
+                p = p.next;
+            }
+            cur += 1;
+            return p.item;
+        }
+    }
+
     private int size;
     private Node sentinel;
     public LinkedListDeque() {
@@ -136,5 +160,10 @@ public class LinkedListDeque<DType> {
             }
         }
         return result;
+    }
+
+    @Override
+    public Iterator<DType> iterator() {
+        return new ListIter();
     }
 }
