@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<DType> {
+import java.util.Iterator;
+
+public class ArrayDeque<DType> implements Iterable<DType>{
     private DType[] items;
     private int size;
     private int front;
@@ -11,6 +13,26 @@ public class ArrayDeque<DType> {
         items = (DType []) new Object[8];
         front = 0;
         back = 0;
+    }
+
+    private class ArrayIter implements Iterator<DType> {
+        private int cur;
+
+        public ArrayIter() {
+            cur = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return cur < size;
+        }
+
+        @Override
+        public DType next() {
+            DType item = get(cur);
+            cur += 1;
+            return item;
+        }
     }
 
     public void resize(int capacity) {
@@ -116,6 +138,7 @@ public class ArrayDeque<DType> {
         return items[true_index];
     }
 
+    @Override
     public boolean equals(Object o) {
         boolean result = false;
         if (o instanceof ArrayDeque<?>) {
@@ -140,5 +163,10 @@ public class ArrayDeque<DType> {
             }
         }
         return result;
+    }
+
+    @Override
+    public Iterator<DType> iterator() {
+        return new ArrayIter();
     }
 }
