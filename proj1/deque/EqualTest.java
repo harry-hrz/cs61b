@@ -5,8 +5,8 @@ import org.junit.Test;
 public class EqualTest {
     @Test
     public void testLAEqual() {
-        ArrayDeque<Integer> test_a = new ArrayDeque<>();
-        LinkedListDeque<Integer> test_l = new LinkedListDeque<>();
+        Deque<Integer> test_a = new ArrayDeque<>();
+        Deque<Integer> test_l = new LinkedListDeque<>();
         test_l.addLast(1);
         test_l.addLast(2);
         test_l.addLast(3);
