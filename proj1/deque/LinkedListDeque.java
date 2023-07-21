@@ -2,8 +2,8 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<DType> implements Iterable<DType> {
-    private class Node {
+public class LinkedListDeque<DType> implements Iterable<DType>, Deque<DType> {
+    public class Node {
         public Node next;
         public Node prev;
         public DType item;
@@ -36,7 +36,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
     }
 
     private int size;
-    private Node sentinel;
+    public Node sentinel;
     public LinkedListDeque() {
         sentinel = new Node(null, null, null);
         sentinel.next = sentinel;
@@ -44,6 +44,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         size = 0;
     }
 
+    @Override
     public void addFirst(DType item) {
         Node p = sentinel.next;
         sentinel.next = new Node(p, sentinel, item);
@@ -54,6 +55,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         size += 1;
     }
 
+    @Override
     public void addLast(DType item) {
         Node p = sentinel.prev;
         if (size == 0) {
@@ -66,10 +68,10 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         size += 1;
     }
 
-    public boolean isEmpty() {return size == 0;}
-
+    @Override
     public int size() {return size;}
 
+    @Override
     public void printDeque() {
         if (size == 0) {
             return;
@@ -88,6 +90,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         }
     }
 
+    @Override
     public DType removeFirst() {
         if (size == 0) {
             return null;
@@ -103,6 +106,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         return x;
     }
 
+    @Override
     public DType removeLast() {
         if (size == 0) {
             return null;
@@ -118,6 +122,7 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
         return x;
     }
 
+    @Override
     public DType get(int index) {
         if (index >= size) {
             return null;
@@ -156,6 +161,23 @@ public class LinkedListDeque<DType> implements Iterable<DType> {
                     if (item0 == item1) {match += 1;}
                     p0 = p0.next;
                     p1 = p1.next;
+                }
+                if (match == size) {result = true;}
+            }
+        }
+        else if (o instanceof ArrayDeque<?>) {
+            if (((ArrayDeque<?>) o).size() == size) {
+                Node p = sentinel.next;
+                int front_o = ((ArrayDeque<?>) o).front;
+                int back_o = ((ArrayDeque<?>) o).back;
+                int match = 0;
+                for (int i = 0; i < size; i++) {
+                    DType itemp = p.item;
+                    DType itemo = (DType) ((ArrayDeque<?>) o).get(front_o);
+                    if (itemo == itemp) {match += 1;}
+                    p = p.next;
+                    if (front_o + 1 >= size) {front_o = 0;}
+                    else {front_o += 1;}
                 }
                 if (match == size) {result = true;}
             }

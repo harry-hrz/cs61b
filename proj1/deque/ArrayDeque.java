@@ -2,11 +2,11 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<DType> implements Iterable<DType>{
+public class ArrayDeque<DType> implements Iterable<DType>, Deque<DType> {
     private DType[] items;
     private int size;
-    private int front;
-    private int back;
+    public int front;
+    public int back;
 
     public ArrayDeque() {
         size = 0;
@@ -53,6 +53,7 @@ public class ArrayDeque<DType> implements Iterable<DType>{
         back = size - 1;
     }
 
+    @Override
     public void addFirst(DType item) {
         if (size == items.length) {
             resize(size * 2);
@@ -64,6 +65,7 @@ public class ArrayDeque<DType> implements Iterable<DType>{
         size += 1;
     }
 
+    @Override
     public void addLast(DType item) {
         if (size == items.length) {
             resize(size * 2);
@@ -75,10 +77,10 @@ public class ArrayDeque<DType> implements Iterable<DType>{
         size += 1;
     }
 
-    public boolean isEmpty() {return size == 0;}
-
+    @Override
     public int size() {return size;}
 
+    @Override
     public void printDeque() {
         if (size == 0) {return;}
         if (front == 0) {
@@ -99,6 +101,7 @@ public class ArrayDeque<DType> implements Iterable<DType>{
         }
     }
 
+    @Override
     public DType removeFirst() {
         if (size < items.length/4 && size > 4) {
             resize(items.length/4);
@@ -114,6 +117,7 @@ public class ArrayDeque<DType> implements Iterable<DType>{
         return x;
     }
 
+    @Override
     public DType removeLast() {
         if (size < items.length/4 && size > 4) {
             resize(items.length/4);
@@ -129,6 +133,7 @@ public class ArrayDeque<DType> implements Iterable<DType>{
         return x;
     }
 
+    @Override
     public DType get(int index) {
         if (index >= size) {return null;}
         int true_index = index + front;
@@ -158,6 +163,22 @@ public class ArrayDeque<DType> implements Iterable<DType>{
                         else {front_o += 1;}
                         match += 1;
                     }
+                }
+                if (match == size) {result = true;}
+            }
+        }
+        else if (o instanceof LinkedListDeque<?>) {
+            if (((LinkedListDeque<?>) o).size() == size) {
+                LinkedListDeque<?>.Node p = ((LinkedListDeque<?>) o).sentinel.next;
+                int front_m = front;
+                int match = 0;
+                for (int i = 0; i < size; i++) {
+                    DType itemp = (DType) p.item;
+                    DType itemm = items[front_m];
+                    if (itemm == itemp) {match += 1;}
+                    p = p.next;
+                    if (front_m + 1 >= size) {front_m = 0;}
+                    else {front_m += 1;}
                 }
                 if (match == size) {result = true;}
             }
