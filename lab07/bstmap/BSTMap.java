@@ -45,10 +45,24 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }
     }
 
+    private boolean contain(Node x, K k) {
+        if (k == null) throw new IllegalArgumentException("calls contain() with a null key");
+        if (x == null) return false;
+        if (x.key.equals(k)) {
+            return true;
+        }
+        else if (x.key.compareTo(k) < 0) {
+            return contain(x.right, k);
+        }
+        else {
+            return contain(x.left, k);
+        }
+    }
+
     @Override
     public boolean containsKey(K key) {
         if (key == null) throw new IllegalArgumentException("calls get() with a null key");
-        return get(key) != null;
+        return contain(root, key);
     }
 
     @Override
@@ -63,14 +77,24 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public void put(K key, V value) {
-
+        root = put(root, key, value);
     }
 
     private Node put(Node x, K key, V value) {
         if (x == null) {
-            return new Node(key, value);
             size += 1;
+            return new Node(key, value);
         }
+        if (x.key.compareTo(key) < 0) {
+            x.right = put(x.right, key, value);
+        }
+        else if (x.key.compareTo(key) > 0) {
+            x.left = put(x.left, key, value);
+        }
+        else {
+            x.value = value;
+        }
+        return x;
     }
 
     public void printInOrder() {
