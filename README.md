@@ -6,3 +6,4 @@
 #### 2023.07.13: Finished Project 0
 #### 2023.07.19: Finished lab02, lab03, lab04, project 1a, project 1b
 #### 2023.07.21: Finished project1c, finished project 1
+#### 2023.07.24: Finished lab07
