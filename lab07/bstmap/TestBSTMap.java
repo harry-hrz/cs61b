@@ -106,4 +106,14 @@ public class TestBSTMap {
         assertEquals(b.get("b"), "provolone");
     }
 
+    @Test
+    public void testPrint() {
+        BSTMap<Integer, String> b = new BSTMap<Integer, String>();
+        b.put(3, "parmesan");
+        b.put(1, "mozzarella");
+        b.put(2, "swiss");
+        b.put(5, "pepper jack");
+        b.put(8, "gouda");
+        b.printInOrder();
+    }
 }

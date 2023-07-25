@@ -1,7 +1,6 @@
 package bstmap;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     private class Node {
@@ -19,6 +18,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private Node root;
     private int size;
+    private int index = 0;
 
     public BSTMap() {
         root = null;
@@ -98,7 +98,25 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     }
 
     public void printInOrder() {
+        ArrayList<K> item = new ArrayList<>(size());
+        printHelper(root, item);
+        int i = 0;
+        index -= 1;
+        while (i < index)
+        {
+            System.out.print(item.get(i++) + " ");
+        }
+        if (i == index)
+        {
+            System.out.println(item.get(i));
+        }
+    }
 
+    private void printHelper(Node x, ArrayList<K> item) {
+        if (x == null) return;
+        printHelper(x.left, item);
+        item.add(index++, x.key);
+        printHelper(x.right, item);
     }
 
     @Override
