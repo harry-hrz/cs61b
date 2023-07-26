@@ -53,4 +53,35 @@ public class TestTimeSeries {
         TimeSeries test1 = new TimeSeries(test, 1991, 1996);
         System.out.println(test1.keySet());
     }
+
+    @Test
+    public void testYearsData() {
+        TimeSeries test = new TimeSeries();
+        test.put(1991, 0.0);
+        test.put(1992, 100.0);
+        test.put(1994, 200.0);
+        test.put(1998, 200.0);
+        test.put(1993, 200.0);
+        test.put(1990, 200.0);
+        System.out.println(test.data());
+    }
+
+    @Test
+    public void testDivide() {
+        TimeSeries test = new TimeSeries();
+        test.put(1991, 100.0);
+        test.put(1992, 200.0);
+        test.put(1994, 300.0);
+        test.put(1998, 400.0);
+
+        TimeSeries test1 = new TimeSeries();
+        test1.put(1991, 10.0);
+        test1.put(1992, 20.0);
+        test1.put(1994, 30.0);
+        test1.put(1998, 40.0);
+        test1.put(1989, 123.0);
+
+        TimeSeries ts = test.dividedBy(test1);
+        System.out.println(ts.data());
+    }
 } 
