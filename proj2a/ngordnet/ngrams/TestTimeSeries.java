@@ -40,4 +40,17 @@ public class TestTimeSeries {
             assertEquals(expectedTotal.get(i), totalPopulation.data().get(i), 1E-10);
         }
     }
+
+    @Test
+    public void testRemove() {
+        TimeSeries test = new TimeSeries();
+        test.put(1991, 0.0);
+        test.put(1992, 100.0);
+        test.put(1994, 200.0);
+        test.put(1998, 200.0);
+        test.put(1993, 200.0);
+        test.put(1990, 200.0);
+        TimeSeries test1 = new TimeSeries(test, 1991, 1996);
+        System.out.println(test1.keySet());
+    }
 } 

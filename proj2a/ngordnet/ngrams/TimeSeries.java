@@ -16,6 +16,21 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      *  inclusive of both end points. */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
+        ArrayList<Integer> stay = stay(ts, startYear, endYear);
+        for (int key : stay) {
+            this.put(key, ts.get(key));
+        }
+    }
+
+    public ArrayList<Integer> stay(TimeSeries ts, int start, int end) {
+        Set<Integer> k = ts.keySet();
+        ArrayList<Integer> in = new ArrayList<>(ts.size());
+        for (int key : k) {
+            if (key >= start && key <= end) {
+                in.add(key);
+            }
+        }
+        return in;
     }
 
     /** Returns all years for this TimeSeries (in any order). */
