@@ -80,7 +80,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      public TimeSeries dividedBy(TimeSeries ts) {
          if (missing(ts)) throw new IllegalArgumentException();
          TimeSeries ts_new = (TimeSeries) this.clone();
-         ts_new.replaceAll((k, v) -> ts_new.get(k) / ts.get(k));
+         ts_new.replaceAll((k, v) -> this.get(k) / ts.get(k));
          return ts_new;
     }
     private boolean missing(TimeSeries ts) {

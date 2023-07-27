@@ -72,7 +72,7 @@ public class TestTimeSeries {
         test.put(1991, 100.0);
         test.put(1992, 200.0);
         test.put(1994, 300.0);
-        test.put(1998, 400.0);
+        //test.put(1998, 400.0);
 
         TimeSeries test1 = new TimeSeries();
         test1.put(1991, 10.0);
@@ -83,5 +83,24 @@ public class TestTimeSeries {
 
         TimeSeries ts = test.dividedBy(test1);
         System.out.println(ts.data());
+    }
+
+    @Test
+    public void testPlus() {
+        TimeSeries test = new TimeSeries();
+        test.put(1991, 100.0);
+        test.put(1992, 200.0);
+        test.put(1994, 300.0);
+        //test.put(1998, 400.0);
+
+        TimeSeries test1 = new TimeSeries();
+        test1.put(1991, 10.0);
+        test1.put(1992, 20.0);
+        test1.put(1994, 30.0);
+        test1.put(1998, 40.0);
+        test1.put(1989, 123.0);
+
+        TimeSeries ts = test.plus(test1);
+        System.out.println(ts);
     }
 } 
